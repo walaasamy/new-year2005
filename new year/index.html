@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رأس السنة 2024-2025</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script> <!-- إضافة مكتبة الصوت -->
+    <style>
+        /* إعدادات عامة */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: black;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        /* تأثير الألعاب النارية */
+        #fireworks {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: url('fireworks.gif') center/cover no-repeat;
+            opacity: 0.6;
+            animation: flicker 2s infinite alternate;
+        }
+
+        /* الدعاء */
+        .prayer {
+            font-size: 2.5rem;
+            margin-top: 20vh;
+            color: #FFD700;
+            background: linear-gradient(90deg, #FFD700, #FFA500, #FF6347);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 1s infinite alternate;
+            text-shadow: 0 0 10px #FFD700, 0 0 20px #FF4500;
+        }
+
+        /* العام */
+        .year {
+            font-size: 5rem;
+            color: white;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .year span {
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .year span:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .year span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .year span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .year span:last-child {
+            animation-delay: 0.6s;
+            color: gold;
+        }
+
+        button {
+            margin-top: 40px;
+            padding: 15px 30px;
+            font-size: 1.5rem;
+            background: linear-gradient(90deg, #FFD700, #FF4500);
+            color: white;
+            border: 4px solid #FFD700;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 0 15px #FFD700, 0 0 30px #FFD700;
+            position: relative;
+            display: inline-block;
+        }
+
+        button:active {
+            transform: scale(1.1); /* تكبير الزر عند الضغط */
+        }
+
+        button:hover {
+            background: linear-gradient(90deg, #FF4500, #FFD700);
+            box-shadow: 0 0 20px #FFA500, 0 0 40px #FFD700;
+        }
+
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 10px #FFD700, 0 0 20px #FF4500;
+            }
+            100% {
+                text-shadow: 0 0 20px #FFD700, 0 0 40px #FF6347;
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes flicker {
+            0%, 100% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 0.8;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="fireworks"></div>
+    <div class="container">
+        <h1 class="prayer">اللهم اجعل هذه السنة مليئة بالخير والبركة</h1>
+        <h2 class="year">
+            <span>2</span>
+            <span>0</span>
+            <span>2</span>
+            <span id="last-digit">4</span>
+        </h2>
+        <button id="achievements-btn" class="hidden">إنجازات 2024</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const lastDigit = document.getElementById("last-digit");
+            const achievementsBtn = document.getElementById("achievements-btn");
+
+            // الألعاب النارية
+            function launchFireworks() {
+                confetti({
+                    particleCount: 300,
+                    spread: 100,
+                    startVelocity: 60,
+                    origin: { y: 0.6 },
+                    colors: ['#FFD700', '#FFA500', '#FF6347', '#FFFFFF']
+                });
+            }
+
+            setInterval(launchFireworks, 1000); // زيادة الألعاب النارية
+
+            // تغيير الرقم
+            setTimeout(() => {
+                lastDigit.textContent = "5";
+            }, 3000);
+
+            // ظهور الزر
+            setTimeout(() => {
+                achievementsBtn.classList.remove("hidden");
+            }, 4000);
+
+            // إضافة صوت الفرقعة
+            const popSound = new Howl({
+                src: ['./ألألعاب النارية أصوات الإحتفالات أصوات المفرقعات والأضواء النارية فيديو للمونتاج.mp3'], // ضع المسار الصحيح هنا
+                volume: 1.0
+            });
+
+            // تشغيل الصوت مباشرة عند تحميل الصفحة
+            popSound.play();
+
+            // الانتقال إلى صفحة الإنجازات عند الضغط على الزر
+            achievementsBtn.addEventListener("click", () => {
+                popSound.play(); // تشغيل الصوت عند الضغط
+                window.location.href = "achievements.html";
+            });
+        });
+    </script>
+</body>
+</html>

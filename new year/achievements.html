@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رأس السنة 2024-2025</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script> <!-- مكتبة الألعاب النارية -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script> <!-- مكتبة الصوت -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"> <!-- مكتبة الأيقونات -->
+    <style>
+        /* إعدادات عامة */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #000;
+            color: white;
+            text-align: center;
+            overflow-y: scroll; /* السماح بالتمرير عموديا */
+            position: relative;
+            height: 100%;
+        }
+
+        /* خلفية النجوم والسحاب */
+        #stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('stars.gif') center/cover no-repeat;
+            opacity: 0.7;
+            animation: stars 3s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        /* السحاب الناعم */
+        #clouds {
+            position: absolute;
+            top: 20%;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: url('clouds.gif') center/cover no-repeat;
+            opacity: 0.5;
+            animation: clouds 5s infinite linear;
+            z-index: -2;
+        }
+
+        /* تأثيرات اللمعان الناعم */
+        #light {
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0.7));
+            border-radius: 50%;
+            z-index: -3;
+            animation: shine 3s ease-in-out infinite;
+        }
+
+        /* الفقرة الخاصة بالدعاء */
+        .prayer {
+            font-size: 2.5rem;
+            margin-top: 10vh;
+            color: #cfb107;
+            background: linear-gradient(90deg, #fad60c, #be7e05, #d6c913);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 1s infinite alternate;
+            text-shadow: 0 0 10px #FFD700, 0 0 20px #e69d16;
+        }
+
+        /* فقرة التعريف عن النفس */
+        .intro {
+            font-size: 1.8rem;
+            margin-top: 3vh;
+            color: #fddb19;
+            animation: fadeIn 2s ease-in-out;
+            text-shadow: 0 0 10px #FFD700, 0 0 20px #ffa600;
+            max-width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* تأثير اللمعان على الدعاء */
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 10px #FFD700, 0 0 20px #806f13;
+            }
+            100% {
+                text-shadow: 0 0 20px #FFD700, 0 0 40px #e9a512;
+            }
+        }
+
+        /* ظهور فقرة التعريف */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* الكارد الخاص بالمشاريع */
+        .card {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px #FFD700;
+            margin: 20px;
+            color: #FFF;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 300px;
+            height: 200px;
+            text-align: left;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px #fab215;
+        }
+
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 50px;
+            margin-bottom: 30px;
+        }
+
+        /* زر الدعاء */
+        .prayer-button {
+            background-color: #FFD700;
+            padding: 10px 20px;
+            border-radius: 50px;
+            color: #000;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .prayer-button:hover {
+            background-color: #f1a20d;
+        }
+
+        /* صناديق الفيديو */
+        .video-box {
+         
+            margin: 30px auto;
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px #FFD700;
+            display: inline-block;
+            margin-bottom: 20px;
+            width: 50%; /* اجعل عرض الفيديو يتناسب مع الحاوية */
+            max-width: 500px; 
+        }
+
+        .video-container {
+            margin-top: 50px;
+            display: flex;
+           justify-content: center;
+           gap: 20px;
+        }
+        .video-box:hover{
+            background-color: #ec7708;
+            transform:scale(1.07)
+        }
+        video {
+    width: 100%; 
+    height: auto; 
+}
+        /* روابط التواصل الاجتماعي */
+        .social-links {
+            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .social-links a {
+            text-decoration: none;
+            color: #FFD700;
+            font-size: 2rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #f7980b;
+        }
+
+        /* أزرار روابط المشاريع */
+        .project-button {
+            display: inline-block;
+            background-color: #FFD700;
+            padding: 15px 30px;
+            border-radius: 50px;
+            color: black;
+            text-decoration: none;
+            margin: 10px;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .project-button:hover {
+            background-color: #ffe347;
+        }
+
+        /* حقوق الملكية */
+        .copyright {
+            margin-top: 50px;
+            font-size: 1.2rem;
+            color: #FFD700;
+        }
+    </style>
+</head>
+<body>
+    <div id="stars"></div>
+    <div id="clouds"></div>
+    <div id="light"></div>
+
+    <h1 class="prayer">اللهم اجعل هذا العام عامًا مليئًا بالفرح والخير</h1>
+
+    <button class="prayer-button" onclick="chooseRandomPrayer()">اختار دعاء السنة</button>
+
+    <h2 class="intro">
+"اتمني ان يعجكم موقعي'front end' احببت ان اشارك معكم انجازتي لعام 2024و انا مبرمجة ,lolita اهلا انا "
+    </h2>
+
+    <!-- فيديوهات -->
+    <div class="video-container">
+        <div class="video-box">
+            <video controls>
+                <source src="./VivaCut_video_1724380102692_HD.mp4" type="video/mp4" >
+                متصفحك لا يدعم الفيديو.
+            </video>
+            <p>إنجازي في عامي الأول</p>
+        </div>
+        <div class="video-box">
+            <video controls>
+                <source src="./VivaCut_video_1726608853994.mp4" type="video/mp4">
+                متصفحك لا يدعم الفيديو.
+            </video>
+            <p>إنجازي في التدريب الصيفي</p>
+        </div>
+    </div>
+
+    <!-- أزرار المشاريع -->
+    <div class="cards-container">
+        <a href="https://walaasamy.github.io/ws/" class="project-button">مشروع 1</a>
+        <a href="https://walaasamy.github.io/steller-journey/" class="project-button">مشروع 2</a>
+        <a href="https://walaasamy.github.io/profit-lolita5/" class="project-button">مشروع 3</a>
+        <a href="https://walaasamy.github.io/beack/" class="project-button">مشروع 4</a>
+        <a href="https://walaasamy.github.io/project2/" class="project-button">مشروع 5</a>
+        <a href="https://walaasamy.github.io/wedding/" class="project-button">مشروع 6</a>
+        <a href="https://walaasamy.github.io/wedding/" class="project-button">مشروع 7</a>
+    </div>
+
+    <!-- روابط التواصل الاجتماعي -->
+    <div class="social-links">
+        <a href="#" class="fab fa-facebook-f"></a>
+        <a href="#" class="fab fa-twitter"></a>
+        <a href="#" class="fab fa-linkedin-in"></a>
+    </div>
+
+    <!-- حقوق الملكية -->
+    <div class="copyright">
+        <p>&copy; 2024 جميع الحقوق محفوظة لـ Lolita | Front End Developer</p>
+    </div>
+
+    <script>
+        const prayers = [
+            "اللهم اجعل هذا العام أفضل من الماضي.",
+            "اللهم ارزقني رزقًا حلالًا طيبًا.",
+            "اللهم اهدني لما تحب وترضى.",
+            "اللهم فرج همي وهم من أحب.",
+            "اللهم اجعلني من أهل القران.",
+            "اللهم اجعلني من الذين يسيرون على طريقك."
+        ];
+
+        function chooseRandomPrayer() {
+            const randomPrayer = prayers[Math.floor(Math.random() * prayers.length)];
+            alert(randomPrayer);
+        }
+
+        // تأثير الألعاب النارية
+        window.onload = () => {
+            confetti();
+        };
+    </script>
+</body>
+</html>
